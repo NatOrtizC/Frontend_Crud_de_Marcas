@@ -8,18 +8,16 @@ export default function Home() {
   
   const router = useRouter();
 
-  useEffect(
-    () => {
-      const timer = setTimeout(() =>   
-      {router.replace("/register");}, 2000);
-
-      return () => clearTimeout(timer);
-    },
-    [router]
-  );
+  // useEffect(
+  //   () => {
+  //     const timer = setTimeout(() => router.replace("/register"), 2000);
+  //     return () => clearTimeout(timer);
+  //   },
+  //   [router]
+  // );
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-br from-[#004D40]">
+    <div className="flex items-center justify-center bg-gradient-to-br from-[#004D40] w-full h-full">
       <motion.div
         className="text-center text-white"
         initial={{ opacity:0, scale: 0.8 }}

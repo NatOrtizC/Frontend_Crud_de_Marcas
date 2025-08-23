@@ -10,18 +10,18 @@ export default function RecordForm({ id }) {
     const [activeStep, setActiveStep] = useState(0);
     const { recordStatus, recordFormSteps } = useAppContext();
 
-    const createRegisterNumber = () => {
+    // const createRegisterNumber = () => {
 
-        const now = new Date();
-        const fecha = now.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
-        const hora = now.getHours().toString().padStart(2, "0") +
-            now.getMinutes().toString().padStart(2, "0") +
-            now.getSeconds().toString().padStart(2, "0");
+    //     const now = new Date();
+    //     const fecha = now.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
+    //     const hora = now.getHours().toString().padStart(2, "0") +
+    //         now.getMinutes().toString().padStart(2, "0") +
+    //         now.getSeconds().toString().padStart(2, "0");
 
-        const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatorios
-        return `REG-${fecha}-${hora}-${random}`;
+    //     const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatorios
+    //     return `REG-${fecha}-${hora}-${random}`;
 
-    };
+    // };
 
     const [form, setForm] = useState({
         id: 0,
@@ -29,12 +29,11 @@ export default function RecordForm({ id }) {
         titular: "",
         pais: "",
         estado: "",
-        registration_number: createRegisterNumber()
-    }); 
+    });
 
     const updateRecord = async () => {
         const params = {
-            id: id, 
+            id: id,
             brand: form.marca,
             holder: form.titular,
             country: form.pais,
@@ -42,7 +41,6 @@ export default function RecordForm({ id }) {
         };
 
         const response = await updateRecords(params);
-        console.log(response);
     }
 
     const postCreateRecord = async () => {
@@ -50,12 +48,10 @@ export default function RecordForm({ id }) {
             brand: form.marca,
             holder: form.titular,
             country: form.pais,
-            registration_number: createRegisterNumber(),
             status: recordStatus.indexOf(form.estado)
         };
 
         const response = await createRecords(params);
-        console.log(response);
     };
 
     const handleNext = () => {
@@ -86,25 +82,21 @@ export default function RecordForm({ id }) {
         }
     };
 
-    if(id){
-        useEffect( () => {
+    if (id) {
+        useEffect(() => {
             const fetchRecord = async () => {
-                try{
+                try {
                     const response = await getRecordById({ id })
                     const data = response.data
-                    
+
                     setForm({
-                        id: data.id, 
-                        registration_number: data.registration_number, 
-                        marca: data.brand, 
+                        id: data.id,
+                        marca: data.brand,
                         titular: data.holder,
                         estado: recordStatus[data.status],
                         pais: data.country,
-                        registration_number: data.registration_number ? data.registration_number : createRegisterNumber()
                     })
-
-                    console.log(`obteniendo ${JSON.stringify(response.data)}`)
-                }catch(error){
+                } catch (error) {
                     console.error(error)
                 }
             }
@@ -223,25 +215,25 @@ export default function RecordForm({ id }) {
                         onClick={handleNext}
                         disabled={!isStepValid()}
                         className={`
-                    flex items-center justify-center gap-2 px-6 py-2 rounded-xl
-                    font-semibold shadow-sm transition-all duration-200
-                    ${isStepValid()
+                            flex items-center justify-center gap-2 px-6 py-2 rounded-xl
+                            font-semibold shadow-sm transition-all duration-200
+                            ${isStepValid()
                                 ? "bg-red-500 text-white hover:bg-red-600 hover:shadow-md focus:ring-2 focus:ring-red-300"
                                 : "bg-gray-300 text-gray-500 cursor-not-allowed"}
-                    `}
+                        `}
                     >
                         Continuar →
                     </button>
                 ) : (
                     <button
-                        onClick={ id ? () => updateRecord() : postCreateRecord() }
+                        onClick={id ? () => updateRecord() : postCreateRecord()}
                         className={`
-                    flex items-center justify-center gap-2 px-6 py-2 rounded-xl
-                    bg-green-500 text-white font-semibold shadow-sm
-                    transition-all duration-200
-                    hover:bg-green-600 hover:shadow-md
-                    focus:ring-2 focus:ring-green-300
-                `}
+                            flex items-center justify-center gap-2 px-6 py-2 rounded-xl
+                            bg-green-500 text-white font-semibold shadow-sm
+                            transition-all duration-200
+                            hover:bg-green-600 hover:shadow-md
+                            focus:ring-2 focus:ring-green-300
+                        `}
                     >
                         { id ? '🔄 Actualizar' : '✅ Crear' }
                     </button>

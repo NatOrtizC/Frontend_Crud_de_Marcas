@@ -10,15 +10,11 @@ export default function ClientLayout({ children }) {
       <PathnameWrapper>
         {(pathname) => (
           <div className="flex min-h-screen">
-            {pathname !== "/" &&(
-              <AsideBar pathname={pathname} />)}
+            { pathname !== "/" && ( <AsideBar pathname={pathname} /> ) }
             
             {/* Contenido Principal */}
-            <div className="flex-1 flex flex-col">
-              <main className="flex-1 w-full flex flex-col justify-center items-center p-6 bg-red">
-                {children}
-              </main>
-            </div>
+            <main className="flex flex-1 flex-col justify-center items-center p-6"> {children} </main>
+          
           </div>
         )}
       </PathnameWrapper>
