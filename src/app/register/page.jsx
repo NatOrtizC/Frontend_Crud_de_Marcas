@@ -1,10 +1,9 @@
 // Pantalla #1 (Listado)
 
 "use client";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios";
-import { getRecords} from "@/services/recordsServices";
+import { getRecords } from "@/services/recordsServices";
 import { useRouter } from "next/navigation";
 
 export default function RegistroPage() {
@@ -29,11 +28,12 @@ export default function RegistroPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Servicios / Registro de Marca</h1>
+      <h1 className="text-2xl font-bold mb-4">Registra Tu Marca</h1>
 
       <Link href="/register/new">
-        <button onClick = {handlenewRecords} className="bg-red-500 text-white px-4 py-2 rounded mb-6">
-          Nuevo Registro
+        <button onClick={handlenewRecords} className="bg-red-500 text-white px-4 py-2 rounded mb-6 cursor-pointer">
+          <span className="text-xl font-bold"> + </span>
+          <span>Nuevo Registro</span>
         </button>
       </Link>
 
@@ -51,18 +51,33 @@ export default function RegistroPage() {
         <tbody>
           {records.map((r, i) => (
             <tr key={r.id}>
-              <td className="border p-2">{i +1}</td>
+              <td className="border p-2">{i + 1}</td>
               <td className="border p-2">{r.brand}</td>
               <td className="border p-2">{r.holder}</td>
               <td className="border p-2">{r.country}</td>
               <td className="border p-2">{r.status}</td>
-              <td className="border p-2 space-x-2">
-                <button className="text-red-500">Eliminar</button>
-                <button className="text-green-500">Actualizar</button>
+              <td className="border p-2">
+                <div className="flex flex-col gap-2">
+                  <button className="
+                    w-full px-3 py-1 rounded-lg 
+                    bg-red-500 text-white text-sm font-medium 
+                    hover:bg-red-600 shadow-sm transition
+                  ">
+                    Eliminar
+                  </button>
+                  <button className="
+                    w-full px-3 py-1 rounded-lg 
+                    bg-blue-500 hover:bg-blue-600 text-white text-white text-sm font-medium 
+                    hover:bg-blue-600 shadow-sm transition
+                  ">
+                    Actualizar
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
+
       </table>
     </div>
   );
