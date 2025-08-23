@@ -5,10 +5,20 @@ const API_URL = 'https://crud-de-marcas.onrender.com/api/project/';
 //Lista de Marcas Registradas
 export const getRecords = async () => {
     try {
-        const response = await axios.get(`${API_URL}`);
+        const response = await axios.get(API_URL);
         return response.data.results;
     } catch (error) {
         console.error(error);       
+    }
+}
+
+// Consulta Una Marca Registrada Por Id
+export const getRecordById = async ({ id }) => {
+    try {
+        const response = await axios.get(`${API_URL}${id}`)
+        return response
+    }catch(error) {
+        console.error(error)
     }
 }
 
@@ -22,22 +32,24 @@ export const createRecords = async (Params) => {
     }
 }
 
-// //Actualizar Registro
-// export const updateRecords = async () => {
-//     try {
-//         const response = await axios.put();
-//         return response.data.results
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
+//Actualizar Registro
+export const updateRecords = async (Params) => {
+    try {
+        const { id } = Params;
+        const response = await axios.put(`${API_URL}${id}`, Params);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-// //Eliminar Registro
-// export const deleteRecords = async () => {
-//     try {
-//         await axios.delete(API_URL, );
-//         return response.data.results
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
+//Eliminar Registro
+export const deleteRecords = async (Params) => {
+    try {
+        const { id } = Params;
+        const response = await axios.delete(`${API_URL}${id}`);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}

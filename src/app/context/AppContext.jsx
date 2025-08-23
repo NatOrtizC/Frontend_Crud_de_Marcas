@@ -13,9 +13,15 @@ export const AppProvider = ({ children }) => {
         "Cancelado"
     ]
 
-    const value = {
-        "recordStatus": recordStatus
-    }
+    const recordFormSteps = [
+        "Información de la Marca", 
+        "Información del Titular", 
+        "Información del País de la Marca", 
+        "Estado del Registro de Marca", 
+        "Resumen"
+    ];
+
+    const value = { recordStatus, recordFormSteps }
 
     return (
         <AppContext.Provider value={value}>

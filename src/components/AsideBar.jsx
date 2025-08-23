@@ -1,6 +1,5 @@
 "use client";
 
-import Home from "@/app/page";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,8 +7,9 @@ export default function AsideBar() {
     const pathName = usePathname();
 
     const links = [
-        { href: "/register", label: "Tus Marcas" },
-        { href: "/register/new", label: "Registra Tu Marca" },
+        { href: "/register", label: "Tus Marcas", enabled: true },
+        { href: "/register/new", label: "Registra Tu Marca", enabled: true },
+        { href: "/register/update", label: "Actualiza Tu Marca", enabled: false }
     ]
 
     return ( 
@@ -22,8 +22,9 @@ export default function AsideBar() {
                         <li key={index} className="mb-2">
                             <Link
                                 key={link.href}
-                                href={link.href}
-                                className={`${pathName === link.href ? "text-red-500 font-bold" : "text-gray-700" } hover:text-red-500`}>
+                                href={ link.enabled ? link.href : "#" }
+                                aria-disabled={!link.enabled}
+                                className={`${pathName === link.href ? "text-red-500 font-bold" : "text-gray-700" } ${ link.enabled ? "" : "pointer-events-none opacity-85" } hover:text-red-500 block p-2 bg-white text-gray rounded`}>
                                 {link.label}
                             </Link>
                         </li>

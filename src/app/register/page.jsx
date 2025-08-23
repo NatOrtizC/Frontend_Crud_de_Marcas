@@ -2,8 +2,7 @@
 
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { getRecords } from "@/services/recordsServices";
+import { deleteRecords, getRecords } from "@/services/recordsServices";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "../context/AppContext";
 
@@ -11,9 +10,16 @@ export default function RegistroPage() {
 
   const [records, setRecords] = useState([]);
   const router = useRouter();
-  const handlenewRecords = () => router.push("/register/new")
   
+  const handlenewRecords = () => router.push("/register/new")
+  const handleEditRecords = (id) => router.push(`/register/update?id=${id}`)
+
   const { recordStatus } = useAppContext();
+
+  const deleteRecord = ({ id }) => {
+      deleteRecords({ id })
+      setRecords(prev => prev.filter((r) => r.id !== id))
+  }
 
   const getLabelStatus = (status) => {
     return recordStatus[status];
@@ -37,12 +43,10 @@ export default function RegistroPage() {
     <div>
       <h1 className="text-2xl font-bold mb-4">Registra Tu Marca</h1>
 
-      <Link href="/register/new">
-        <button onClick={handlenewRecords} className="bg-red-500 text-white px-4 py-2 rounded mb-6 cursor-pointer">
-          <span className="text-xl font-bold"> + </span>
-          <span>Nuevo Registro</span>
-        </button>
-      </Link>
+      <button onClick={handlenewRecords} className="bg-red-500 text-white px-4 py-2 rounded mb-6 cursor-pointer">
+        <span className="text-xl font-bold"> + </span>
+        <span>Nuevo Registro</span>
+      </button>
 
       <table className="w-full border">
         <thead>
@@ -65,19 +69,26 @@ export default function RegistroPage() {
               <td className="border p-2">{getLabelStatus(r.status)}</td>
               <td className="border p-2">
                 <div className="flex flex-col gap-2">
-                  <button className="
-                    w-full px-3 py-1 rounded-lg 
-                    bg-red-500 text-white text-sm font-medium 
-                    hover:bg-red-600 shadow-sm transition
-                  ">
-                    Eliminar
-                  </button>
-                  <button className="
-                    w-full px-3 py-1 rounded-lg 
-                    bg-blue-500 hover:bg-blue-600 text-white text-white text-sm font-medium 
-                    hover:bg-blue-600 shadow-sm transition
-                  ">
+                  <button 
+                    onClick={ () => handleEditRecords(r.id) }
+                    className="
+                      w-full px-3 py-1 rounded-lg 
+                      bg-blue-500 hover:bg-blue-600 text-white text-white text-sm font-medium 
+                      hover:bg-blue-600 shadow-sm transition
+                    "
+                  >
                     Actualizar
+                  </button>
+
+                  <button 
+                    onClick={() => deleteRecord({ id: r.id })}
+                    className="
+                      w-full px-3 py-1 rounded-lg 
+                      bg-red-500 text-white text-sm font-medium 
+                      hover:bg-red-600 shadow-sm transition
+                    "
+                  >
+                    Eliminar
                   </button>
                 </div>
               </td>
