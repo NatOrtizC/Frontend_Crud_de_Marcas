@@ -5,12 +5,19 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getRecords } from "@/services/recordsServices";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "../context/AppContext";
 
 export default function RegistroPage() {
 
   const [records, setRecords] = useState([]);
   const router = useRouter();
   const handlenewRecords = () => router.push("/register/new")
+  
+  const { recordStatus } = useAppContext();
+
+  const getLabelStatus = (status) => {
+    return recordStatus[status];
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,13 +56,13 @@ export default function RegistroPage() {
           </tr>
         </thead>
         <tbody>
-          {records.map((r, i) => (
+          {records.map((r) => (
             <tr key={r.id}>
-              <td className="border p-2">{i + 1}</td>
+              <td className="border p-2">{r.registration_number}</td>
               <td className="border p-2">{r.brand}</td>
               <td className="border p-2">{r.holder}</td>
               <td className="border p-2">{r.country}</td>
-              <td className="border p-2">{r.status}</td>
+              <td className="border p-2">{getLabelStatus(r.status)}</td>
               <td className="border p-2">
                 <div className="flex flex-col gap-2">
                   <button className="

@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import AsideBar from "@/components/AsideBar";
 import Home from "./page";
+import { AppProvider } from "./context/AppContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,17 +26,19 @@ export default function RootLayout({ children }) {
       <body
         className={` ${geistSans.variable} ${geistMono.variable} bg-gray-100 antialiased`}
       >
-        <div className="flex min-h-screen">
+        <AppProvider>
+          <div className="flex min-h-screen">
 
-          <AsideBar />
+            <AsideBar />
 
-          <div className="flex flex-1 justify-center items-center p-8">
-            <main className="flex flex-col gap-[32px] items-center">
-              {children}
-            </main>
+            <div className="flex flex-1 justify-center items-center p-8">
+              <main className="flex flex-col gap-[32px] items-center">
+                {children}
+              </main>
+            </div>
+
           </div>
-
-        </div>
+        </AppProvider>  
       </body>
     </html>
   );

@@ -16,7 +16,7 @@ export const getRecords = async () => {
 export const createRecords = async (Params) => {
     try {
         const response = await axios.post(API_URL, Params);
-        return response.data.results
+        return response
     } catch (error) {
         console.error(error);
     }

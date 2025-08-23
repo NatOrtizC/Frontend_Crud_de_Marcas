@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { AppProvider } from "./context/AppContext";
 
 export default function Home() {
   

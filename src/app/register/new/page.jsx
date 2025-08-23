@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { Stepper, Step, StepLabel } from "@mui/material";
 import { createRecords } from "@/services/recordsServices"
+import { useAppContext } from "@/app/context/AppContext";
 
 const steps = ["Información de la Marca", "Información del Titular", "Información del País de la Marca", "Estado del Registro de Marca", "Resumen"];
 
 export default function NuevoRegistro() {
   const [activeStep, setActiveStep] = useState(0);
-
+  const { recordStatus } = useAppContext();
 
   const [form, setForm] = useState({
     marca: "",
@@ -17,12 +18,31 @@ export default function NuevoRegistro() {
     estado: "",
   });
 
-  const recordStatus = [
-    "Pendiente",
-    "En Processo",
-    "Completado",
-    "Cancelado"
-  ]
+  const createRegisterNumber = () => {
+    
+    const now = new Date();
+    const fecha = now.toISOString().slice(0,10).replace(/-/g,""); // YYYYMMDD
+    const hora = now.getHours().toString().padStart(2,"0") +
+                now.getMinutes().toString().padStart(2,"0") +
+                now.getSeconds().toString().padStart(2,"0");
+    
+    const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatorios
+    return `REG-${fecha}-${hora}-${random}`;
+
+  };
+
+  const postCreateRecord = async () => {
+      const params = {
+        brand: form.marca,
+        holder: form.titular,
+        country: form.pais,
+        registration_number: createRegisterNumber(), 
+        status: recordStatus.indexOf(form.estado) 
+      }
+
+      const response = await createRecords(params)
+      console.log(response)
+  }
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) setActiveStep(activeStep + 1);
@@ -33,7 +53,6 @@ export default function NuevoRegistro() {
   };
 
   const handleChange = (e) => {
-    console.log(form);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -175,7 +194,7 @@ export default function NuevoRegistro() {
           </button>
         ) : (
           <button
-            onClick={createRecords}
+            onClick={postCreateRecord}
             className={`
             flex items-center justify-center gap-2 px-6 py-2 rounded-xl
             bg-green-500 text-white font-semibold shadow-sm
