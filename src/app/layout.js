@@ -26,11 +26,11 @@ export default function RootLayout({ children }) {
       <body
         className={` ${geistSans.variable} ${geistMono.variable} bg-[#FCFFDC] antialiased`}
       >
-        <AppProvider>
+        <AppProvider>  
           <ClientLayout>
             {children}
           </ClientLayout>          
-        </AppProvider>  
+        </AppProvider>
       </body>
     </html>
   );

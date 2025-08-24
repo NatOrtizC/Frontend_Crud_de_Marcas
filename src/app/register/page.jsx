@@ -1,13 +1,15 @@
 // Pantalla #1 (Listado)
 
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useLayoutEffect, useState } from "react";
 import { deleteRecords, getRecords } from "@/services/recordsServices";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "../context/AppContext";
+import Loading from "@/components/Loading";
 
 export default function RegistroPage() {
 
+  const [isLoading, setIsLoading] = useState(true);
   const [records, setRecords] = useState([]);
   const router = useRouter();
   
@@ -27,18 +29,24 @@ export default function RegistroPage() {
   }
 
   useEffect(() => {
+    
+    setIsLoading(true);
+    
     const fetchData = async () => {
       try {
         const result = await getRecords();
-        console.log(result);
-        setRecords(result); // si quieres guardar los registros
+        setRecords(result); 
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
-
+    
     fetchData();
+
   }, []);
+
+  if(isLoading) return <Loading/>
 
   return (
     <div>
