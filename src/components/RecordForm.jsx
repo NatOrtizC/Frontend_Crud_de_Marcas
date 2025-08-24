@@ -126,7 +126,7 @@ export default function RecordForm({ id }) {
                         name="marca"
                         value={form.marca}
                         onChange={handleChange}
-                        className="border border-[#004D4080] focus:border-[#004D40] p-2 w-full mb-4"
+                        className="border-2 border-[#007562] focus:border-[#004D40] p-2 w-full mb-4"
                     />
                 </div>
             )}
@@ -134,13 +134,13 @@ export default function RecordForm({ id }) {
             {/* Paso 2 */}
             {activeStep === 1 && (
                 <div>
-                    <label className="block mb-2">Titular de la Marca</label>
+                    <label className="block text-black font-bold mb-2">Titular de la Marca</label>
                     <input
                         type="text"
                         name="titular"
                         value={form.titular}
                         onChange={handleChange}
-                        className="border p-2 w-full mb-4"
+                        className="border-2 border-[#007562] focus:border-[#004D40] p-2 w-full mb-4"
                     />
                 </div>
             )}
@@ -148,13 +148,13 @@ export default function RecordForm({ id }) {
             {/* Paso 3 */}
             {activeStep === 2 && (
                 <div>
-                    <label className="block mb-2">País donde se Registra la Marca</label>
+                    <label className="block text-black font-bold mb-2">País donde se Registra la Marca</label>
                     <input
                         type="text"
                         name="pais"
                         value={form.pais}
                         onChange={handleChange}
-                        className="border p-2 w-full mb-4"
+                        className="border-2 border-[#007562] focus:border-[#004D40] p-2 w-full mb-4"
                     />
                 </div>
             )}
@@ -163,12 +163,12 @@ export default function RecordForm({ id }) {
             {/*Paso 4 */}
             {activeStep === 3 && (
                 <div>
-                    <label className="block mb-2">Estado del Registro de la Marca</label>
+                    <label className="block text-black font-bold mb-2">Estado del Registro de la Marca</label>
                     <select
                         name="estado"
                         value={form.estado}
                         onChange={handleChange}
-                        className="w-full border p-2 rounded mb-4"
+                        className="border-2 border-[#007562] focus:border-[#004D40] p-2 w-full mb-4"
                     >
                         {recordStatus.map((label, index) => (
                             <option key={index} value={label}>
@@ -181,15 +181,15 @@ export default function RecordForm({ id }) {
 
             {/* Paso 5 */}
             {activeStep === 4 && (
-                <div className="max-w-md mx-auto bg-white rounded-2xl shadow-md p-6 border border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                        Información del registro
+                <div className="max-w-md mx-auto bg-white rounded-3xl shadow-md p-6 border-2 border-[#007562]">
+                    <h2 className="text-lg font-bold text-[#007562] mb-4">
+                        Información Del Registro
                     </h2>
                     <div className="space-y-2 text-gray-700">
-                        <p><span className="font-medium text-gray-900">Marca:</span> {form.marca}</p>
-                        <p><span className="font-medium text-gray-900">Titular:</span> {form.titular}</p>
-                        <p><span className="font-medium text-gray-900">País:</span> {form.pais}</p>
-                        <p><span className="font-medium text-gray-900">Estado:</span> {form.estado}</p>
+                        <p><span className="font-medium font-semibold text-gray-900">Marca:</span> {form.marca}</p>
+                        <p><span className="font-medium font-semibold text-gray-900">Titular:</span> {form.titular}</p>
+                        <p><span className="font-medium font-semibold text-gray-900">País:</span> {form.pais}</p>
+                        <p><span className="font-medium font-semibold text-gray-900">Estado:</span> {form.estado}</p>
                     </div>
                 </div>
             )}
@@ -204,7 +204,7 @@ export default function RecordForm({ id }) {
                     flex items-center justify-center gap-2 px-6 py-2 rounded-xl border 
                     bg-gray-200 text-gray-700 font-medium shadow-sm
                     transition-all duration-200
-                    hover:bg-gray-300 hover:shadow-md
+                    hover:bg-[#E6FFFB] hover:shadow-md
                     disabled:opacity-50 disabled:cursor-not-allowed
                 `}
                 >
@@ -230,9 +230,9 @@ export default function RecordForm({ id }) {
                         onClick={id ? () => updateRecord() : () => postCreateRecord()}
                         className={`
                             flex items-center justify-center gap-2 px-6 py-2 rounded-xl
-                            bg-green-500 text-white font-semibold shadow-sm
+                            bg-[#007562] text-white font-semibold shadow-sm
                             transition-all duration-200
-                            hover:bg-green-600 hover:shadow-md
+                            hover:bg-[#004D40] hover:shadow-md
                             focus:ring-2 focus:ring-green-300
                         `}
                     >

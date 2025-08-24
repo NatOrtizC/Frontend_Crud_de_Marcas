@@ -49,26 +49,26 @@ export default function RegistroPage() {
         <span>Nuevo Registro</span>
       </button>
 
-      <table className="w-full border border-black">
+      <table className="w-full border-4 border-[#004D40]">
         <thead>
           <tr className="bg-[#004D40]">
-            <th className="p-2 text-white border border-black">N° de Registro</th>
-            <th className="p-2 text-white border border-black">Marca</th>
-            <th className="p-2 text-white border border-black">Titular</th>
-            <th className="p-2 text-white border border-black">País</th>
-            <th className="p-2 text-white border border-black">Estado</th>
-            <th className="p-2 text-white border border-black">Acciones</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">N° de Registro</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">Marca</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">Titular</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">País</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">Estado</th>
+            <th className="p-2 text-white border-4 border-[#004D40]">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {records.map((r) => (
             <tr key={r.id}>
-              <td className="border border-black p-2">{r.registration_number}</td>
-              <td className="border border-black p-2">{r.brand}</td>
-              <td className="border border-black p-2">{r.holder}</td>
-              <td className="border border-black p-2">{r.country}</td>
-              <td className="border border-black p-2">{getLabelStatus(r.status)}</td>
-              <td className="border border-black p-2">
+              <td className="border-4 border-[#004D40] p-2">{r.registration_number}</td>
+              <td className="border-4 border-[#004D40] p-2">{r.brand}</td>
+              <td className="border-4 border-[#004D40] p-2">{r.holder}</td>
+              <td className="border-4 border-[#004D40] p-2">{r.country}</td>
+              <td className="border-4 border-[#004D40] p-2">{getLabelStatus(r.status)}</td>
+              <td className="border-4 border-[#004D40] p-2">
                 <div className="flex flex-col gap-2">
                   <button 
                     onClick={ () => handleEditRecords(r.id) }
