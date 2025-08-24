@@ -2,9 +2,9 @@
 
 import RecordForm from "@/components/RecordForm";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function ActualizarRegistro(){
-
+function UpdateRecordContent() {
     const searchParams = useSearchParams();
     const idParam = searchParams.get("id")
 
@@ -14,4 +14,15 @@ export default function ActualizarRegistro(){
             <RecordForm id={idParam}></RecordForm>
         </div>
     )
+
+}
+
+export default function ActualizarRegistro(){
+
+    return(
+        <Suspense fallback={<div>Cargando ...</div>}>
+            <UpdateRecordContent />
+        </Suspense>
+    );
+
 }
