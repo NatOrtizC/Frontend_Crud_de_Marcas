@@ -11,7 +11,7 @@ export default function RecordForm({ id }) {
 
     const router = useRouter();
     const [activeStep, setActiveStep] = useState(0);
-    const { recordStatus, recordFormSteps, setShowSnackBar, isLoading,  setIsLoading } = useAppContext();
+    const { recordStatus, recordFormSteps, setShowSnackBar } = useAppContext();
 
     const [form, setForm] = useState({
         id: 0,
@@ -78,9 +78,6 @@ export default function RecordForm({ id }) {
 
     if (id) {
         useLayoutEffect(() => {
-
-            setIsLoading(true);
-
             const fetchRecord = async () => {
                 try {
                     const response = await getRecordById({ id })
@@ -93,8 +90,6 @@ export default function RecordForm({ id }) {
                         estado: recordStatus[data.status],
                         pais: data.country,
                     })
-                    
-                    setIsLoading(false);
 
                 } catch (error) {
                     console.error(error)
@@ -106,9 +101,7 @@ export default function RecordForm({ id }) {
         }, []);
     }
 
-    if(isLoading) <Loading />
-
-    return ( !isLoading &&
+    return (
         <>
             <Stepper activeStep={activeStep} alternativeLabel className="mb-6" sx={{ 
                     '.MuiStepLabel-label': { color: '#004d40d7'}, 
