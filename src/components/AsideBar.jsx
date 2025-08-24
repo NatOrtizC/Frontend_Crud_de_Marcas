@@ -13,8 +13,8 @@ export default function AsideBar() {
     ]
 
     return ( 
-        <aside className="w-64 bg-red-200 p-4">
-            <h2 className="text-xl font-bold mb-6">Panel</h2>
+        <aside className="w-64 p-4 bg-gradient-to-br from-[#004D40]">
+            <h2 className="text-xl text-white font-bold mb-6">Panel</h2>
 
             <nav>
                 <ul>
@@ -24,7 +24,7 @@ export default function AsideBar() {
                                 key={link.href}
                                 href={ link.enabled ? link.href : "#" }
                                 aria-disabled={!link.enabled}
-                                className={`${pathName === link.href ? "text-red-500 font-bold" : "text-gray-700" } ${ link.enabled ? "" : "pointer-events-none opacity-85" } hover:text-red-500 block p-2 bg-white text-gray rounded`}>
+                                className={`${pathName === link.href ? "text-[#004D40] font-bold" : "text-[#004D4090]" } ${ link.enabled ? "font-bold" : "pointer-events-none opacity-85" } hover:text-[#004D40] block p-2 bg-white text-gray rounded`}>
                                 {link.label}
                             </Link>
                         </li>

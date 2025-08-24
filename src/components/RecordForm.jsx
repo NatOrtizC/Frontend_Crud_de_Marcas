@@ -3,25 +3,15 @@
 import { useAppContext } from "@/app/context/AppContext";
 import { createRecords, getRecordById, updateRecords } from "@/services/recordsServices";
 import { Step, StepLabel, Stepper } from "@mui/material";
+import { color } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function RecordForm({ id }) {
 
+    const router = useRouter();
     const [activeStep, setActiveStep] = useState(0);
-    const { recordStatus, recordFormSteps } = useAppContext();
-
-    // const createRegisterNumber = () => {
-
-    //     const now = new Date();
-    //     const fecha = now.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
-    //     const hora = now.getHours().toString().padStart(2, "0") +
-    //         now.getMinutes().toString().padStart(2, "0") +
-    //         now.getSeconds().toString().padStart(2, "0");
-
-    //     const random = Math.floor(1000 + Math.random() * 9000); // 4 dígitos aleatorios
-    //     return `REG-${fecha}-${hora}-${random}`;
-
-    // };
+    const { recordStatus, recordFormSteps, setShowSnackBar } = useAppContext();
 
     const [form, setForm] = useState({
         id: 0,
@@ -40,7 +30,9 @@ export default function RecordForm({ id }) {
             status: recordStatus.indexOf(form.estado)
         };
 
-        const response = await updateRecords(params);
+        await updateRecords(params);
+        setShowSnackBar({ message: "Actualizado Con Exito", type: "success" })
+        router.replace("/register")
     }
 
     const postCreateRecord = async () => {
@@ -51,7 +43,9 @@ export default function RecordForm({ id }) {
             status: recordStatus.indexOf(form.estado)
         };
 
-        const response = await createRecords(params);
+        await createRecords(params);
+        setShowSnackBar({ message: "Creado Con Exito", type: "success" });
+        router.replace("/register")
     };
 
     const handleNext = () => {
@@ -108,7 +102,14 @@ export default function RecordForm({ id }) {
 
     return (
         <>
-            <Stepper activeStep={activeStep} alternativeLabel className="mb-6">
+            <Stepper activeStep={activeStep} alternativeLabel className="mb-6" sx={{ 
+                    '.MuiStepLabel-label': { color: '#004d40d7'}, 
+                    '.MuiStepLabel-label.Mui-active': { color: '#004D40', fontWeight: 'bold'},
+                    '.MuiStepLabel-label.Mui-completed': { color: '#004D40' },
+                    '.MuiStepIcon-root': { color: 'lightgray' },
+                    '.MuiStepIcon-root.Mui-active': { color: '#004D40' },
+                    '.MuiStepIcon-root.Mui-completed': { color: '#004D40' },
+                }}>
                 {recordFormSteps.map((label) => (
                     <Step key={label}>
                         <StepLabel>{label}</StepLabel>
@@ -119,13 +120,13 @@ export default function RecordForm({ id }) {
             {/* Paso 1 */}
             {activeStep === 0 && (
                 <div>
-                    <label className="block mb-2">Marca a {id ? "Actualizar" : "Registrar"} </label>
+                    <label className="block text-black font-bold mb-2">Marca a {id ? "Actualizar" : "Registrar"} </label>
                     <input
                         type="text"
                         name="marca"
                         value={form.marca}
                         onChange={handleChange}
-                        className="border p-2 w-full mb-4"
+                        className="border border-[#004D4080] focus:border-[#004D40] p-2 w-full mb-4"
                     />
                 </div>
             )}
@@ -218,7 +219,7 @@ export default function RecordForm({ id }) {
                             flex items-center justify-center gap-2 px-6 py-2 rounded-xl
                             font-semibold shadow-sm transition-all duration-200
                             ${isStepValid()
-                                ? "bg-red-500 text-white hover:bg-red-600 hover:shadow-md focus:ring-2 focus:ring-red-300"
+                                ? "bg-[#004D40EF] text-white hover:bg-[#004D40] hover:shadow-md focus:ring-2 focus:ring-red-300"
                                 : "bg-gray-300 text-gray-500 cursor-not-allowed"}
                         `}
                     >
@@ -226,7 +227,7 @@ export default function RecordForm({ id }) {
                     </button>
                 ) : (
                     <button
-                        onClick={id ? () => updateRecord() : postCreateRecord()}
+                        onClick={id ? () => updateRecord() : () => postCreateRecord()}
                         className={`
                             flex items-center justify-center gap-2 px-6 py-2 rounded-xl
                             bg-green-500 text-white font-semibold shadow-sm

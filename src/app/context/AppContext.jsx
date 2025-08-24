@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AppContext = createContext();
 
@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
         "Completado",
         "Cancelado"
     ]
-
+    
     const recordFormSteps = [
         "Información de la Marca", 
         "Información del Titular", 
@@ -20,8 +20,10 @@ export const AppProvider = ({ children }) => {
         "Estado del Registro de Marca", 
         "Resumen"
     ];
-
-    const value = { recordStatus, recordFormSteps }
+    
+    const [showSnackBar, setShowSnackBar] = useState(null);
+    
+    const value = { recordStatus, recordFormSteps, showSnackBar, setShowSnackBar }
 
     return (
         <AppContext.Provider value={value}>

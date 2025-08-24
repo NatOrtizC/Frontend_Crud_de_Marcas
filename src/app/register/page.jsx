@@ -14,11 +14,12 @@ export default function RegistroPage() {
   const handlenewRecords = () => router.push("/register/new")
   const handleEditRecords = (id) => router.push(`/register/update?id=${id}`)
 
-  const { recordStatus } = useAppContext();
+  const { recordStatus, setShowSnackBar } = useAppContext();
 
   const deleteRecord = ({ id }) => {
-      deleteRecords({ id })
-      setRecords(prev => prev.filter((r) => r.id !== id))
+      deleteRecords({ id });
+      setRecords(prev => prev.filter((r) => r.id !== id));
+      setShowSnackBar({ message: "Eliminado Con Exito", type: "error" });
   }
 
   const getLabelStatus = (status) => {
@@ -41,33 +42,33 @@ export default function RegistroPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Registra Tu Marca</h1>
+      <h1 className="text-2xl text-[#004D40] font-bold mb-4">Registra Tu Marca</h1>
 
-      <button onClick={handlenewRecords} className="bg-red-500 text-white px-4 py-2 rounded mb-6 cursor-pointer">
+      <button onClick={handlenewRecords} className="bg-[#004D40] text-white px-4 py-2 rounded mb-6 cursor-pointer">
         <span className="text-xl font-bold"> + </span>
         <span>Nuevo Registro</span>
       </button>
 
-      <table className="w-full border">
+      <table className="w-full border border-black">
         <thead>
-          <tr className="bg-red-100">
-            <th className="p-2 border">N° de Registro</th>
-            <th className="p-2 border">Marca</th>
-            <th className="p-2 border">Titular</th>
-            <th className="p-2 border">País</th>
-            <th className="p-2 border">Estado</th>
-            <th className="p-2 border">Acciones</th>
+          <tr className="bg-[#004D40]">
+            <th className="p-2 text-white border border-black">N° de Registro</th>
+            <th className="p-2 text-white border border-black">Marca</th>
+            <th className="p-2 text-white border border-black">Titular</th>
+            <th className="p-2 text-white border border-black">País</th>
+            <th className="p-2 text-white border border-black">Estado</th>
+            <th className="p-2 text-white border border-black">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {records.map((r) => (
             <tr key={r.id}>
-              <td className="border p-2">{r.registration_number}</td>
-              <td className="border p-2">{r.brand}</td>
-              <td className="border p-2">{r.holder}</td>
-              <td className="border p-2">{r.country}</td>
-              <td className="border p-2">{getLabelStatus(r.status)}</td>
-              <td className="border p-2">
+              <td className="border border-black p-2">{r.registration_number}</td>
+              <td className="border border-black p-2">{r.brand}</td>
+              <td className="border border-black p-2">{r.holder}</td>
+              <td className="border border-black p-2">{r.country}</td>
+              <td className="border border-black p-2">{getLabelStatus(r.status)}</td>
+              <td className="border border-black p-2">
                 <div className="flex flex-col gap-2">
                   <button 
                     onClick={ () => handleEditRecords(r.id) }

@@ -10,7 +10,7 @@ export default function ActualizarRegistro(){
 
     return (
         <div>
-            <h1 className="text-2xl font-bold mb-6">Actualizar Registro de Marca</h1>
+            <h1 className="text-2xl text-[#004D40] font-bold mb-6">Actualizar Registro de Marca</h1>
             <RecordForm id={idParam}></RecordForm>
         </div>
     )

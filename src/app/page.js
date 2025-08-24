@@ -8,13 +8,13 @@ export default function Home() {
   
   const router = useRouter();
 
-  // useEffect(
-  //   () => {
-  //     const timer = setTimeout(() => router.replace("/register"), 2000);
-  //     return () => clearTimeout(timer);
-  //   },
-  //   [router]
-  // );
+  useEffect(
+    () => {
+      const timer = setTimeout(() => router.replace("/register"), 2000);
+      return () => clearTimeout(timer);
+    },
+    [router]
+  );
 
   return (
     <div className="flex items-center justify-center bg-gradient-to-br from-[#004D40] w-full h-full">
@@ -44,6 +44,7 @@ export default function Home() {
             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
           />
         </div>
+
       </motion.div>
     </div>
   ); 

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "./context/AppContext";
 import ClientLayout from "@/components/ClientLayout";
+import Snackbar from "@/components/SnackBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
         <AppProvider>
           <ClientLayout>
             {children}
-          </ClientLayout>
+          </ClientLayout>          
         </AppProvider>  
       </body>
     </html>
