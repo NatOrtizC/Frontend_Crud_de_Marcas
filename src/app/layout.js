@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import { AppProvider } from "./context/AppContext";
+import ClientLayout from "@/components/ClientLayout";
+import Snackbar from "@/components/SnackBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,29 +20,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <body
-        className={` ${geistSans.variable} ${geistMono.variable} bg-gray-100 antialiased`}
+        className={` ${geistSans.variable} ${geistMono.variable} bg-[#FCFFDC] antialiased`}
       >
-       <div className="flex min-h-screen">
-          {/* Sidebar */}
-          <aside className="w-64 bg-red-200 p-4">
-            <h2 className="text-xl font-bold mb-6">Panel</h2>
-            <nav>
-              <ul>
-                <li className="mb-2">
-                  <Link href="/register/new" className="block p-2 bg-red-400 text-white rounded">
-                    Registro de Marca
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </aside>
-
-          {/* Contenido */}
-          <main className="flex-1 p-8">{children}</main>
-        </div>
+        <AppProvider>
+          <ClientLayout>
+            {children}
+          </ClientLayout>          
+        </AppProvider>  
       </body>
     </html>
   );
