@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppContext } from "@/app/context/AppContext";
 import RecordForm from "@/components/RecordForm";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";

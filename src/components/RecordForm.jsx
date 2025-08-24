@@ -3,15 +3,15 @@
 import { useAppContext } from "@/app/context/AppContext";
 import { createRecords, getRecordById, updateRecords } from "@/services/recordsServices";
 import { Step, StepLabel, Stepper } from "@mui/material";
-import { color } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import Loading from "./Loading";
 
 export default function RecordForm({ id }) {
 
     const router = useRouter();
     const [activeStep, setActiveStep] = useState(0);
-    const { recordStatus, recordFormSteps, setShowSnackBar } = useAppContext();
+    const { recordStatus, recordFormSteps, setShowSnackBar, isLoading,  setIsLoading } = useAppContext();
 
     const [form, setForm] = useState({
         id: 0,
@@ -29,7 +29,7 @@ export default function RecordForm({ id }) {
             country: form.pais,
             status: recordStatus.indexOf(form.estado)
         };
-
+        
         await updateRecords(params);
         setShowSnackBar({ message: "Actualizado Con Exito", type: "success" })
         router.replace("/register")
@@ -77,7 +77,10 @@ export default function RecordForm({ id }) {
     };
 
     if (id) {
-        useEffect(() => {
+        useLayoutEffect(() => {
+
+            setIsLoading(true);
+
             const fetchRecord = async () => {
                 try {
                     const response = await getRecordById({ id })
@@ -90,6 +93,9 @@ export default function RecordForm({ id }) {
                         estado: recordStatus[data.status],
                         pais: data.country,
                     })
+                    
+                    setIsLoading(false);
+
                 } catch (error) {
                     console.error(error)
                 }
@@ -100,7 +106,9 @@ export default function RecordForm({ id }) {
         }, []);
     }
 
-    return (
+    if(isLoading) <Loading />
+
+    return ( !isLoading &&
         <>
             <Stepper activeStep={activeStep} alternativeLabel className="mb-6" sx={{ 
                     '.MuiStepLabel-label': { color: '#004d40d7'}, 
